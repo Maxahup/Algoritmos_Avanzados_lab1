@@ -121,7 +121,7 @@ int* getMaxiumValue(int** data, int dataSize, int maxPonderation){
 	}
 
 	free(combinationValues);
-	printf("max value found:%i with ponderation:\n", maxiumValues[0], maxiumValues[1] );
+	printf("max value found:%i with ponderation: %i\n", maxiumValues[0], maxiumValues[1] );
 	return combinationValues;	
 }
 
