@@ -80,7 +80,7 @@ bool breaker(int* combinations,int dataSize){
 }		
 
 
-int* getMaxiumValue(int** data, int dataSize, int maxPonderation){
+void getMaxiumValue(int** data, int dataSize, int maxPonderation){
 
 	int maxiumValues[2] ={0,0};
 	int* combinationValues = (int *)malloc(sizeof(int)*dataSize);
@@ -122,7 +122,7 @@ int* getMaxiumValue(int** data, int dataSize, int maxPonderation){
 
 	free(combinationValues);
 	printf("max value found:%i with ponderation: %i\n", maxiumValues[0], maxiumValues[1] );
-	return combinationValues;	
+	//return combinationValues;	
 }
 
 int getAmountData(char *fileName){
@@ -163,9 +163,21 @@ int main(int argc, char const *argv[]){
 	//printf("name in main: %s\n", name );
 	//printf("valor con getMaxPonderation(copyName): %i\n", maxPonderation);
 
+
+	//NUMBER OF POSSIBLE COMBINATIONS
+	int fullyCombinations=0;
+	for (int i = 1; i <= amountData; ++i){
+		fullyCombinations=fullyCombinations+combination(amountData,i);
+	}
+	printf("combinaciones posibles: %i\n", fullyCombinations );
+
+
+
 	//MAXIUM VALUE SEARCH PROCESS
-	int* valueFound = getMaxiumValue(data,amountData,maxPonderation);
-	printf("valueFoundss: %i\n",valueFound[0] );
+
+	int valueFound[2];
+	getMaxiumValue(data,amountData,maxPonderation);
+
 
 
 
