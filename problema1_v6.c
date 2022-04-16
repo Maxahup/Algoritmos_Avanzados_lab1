@@ -37,27 +37,25 @@ int **getData(char* nombreArchivo){
 
 	FILE * fp=fopen(nombreArchivo, "r");
 	if (fp==NULL){
-		printf("fallo lectura archivo.\n");
+		printf("fallo lectura archivo.\nFinalizando el programa...");
+		exit(-1);
 	}
-	
-
-	//reserve of memory
-	int** data = (int**)malloc(sizeof(int*)*sizeData);
-	for (int i = 0; i < sizeData; ++i){
-		data[i]=(int *)malloc(sizeof(int)*2);
+	else{
+		//reserve of memory
+		int** data = (int**)malloc(sizeof(int*)*sizeData);
+		for (int i = 0; i < sizeData; ++i){
+			data[i]=(int *)malloc(sizeof(int)*2);
+		}
+		//reading data
+		for(int i = 0; i<sizeData; i++){
+	        for(int j = 0 ; j<2; j++){
+	            fscanf(fp, "%i", &data[i][j]);
+	        }
+	    }
+	    fclose(fp);
+	    return data;
 	}
-
-	//reading data
-	for(int i = 0; i<sizeData; i++){
-        for(int j = 0 ; j<2; j++){
-            fscanf(fp, "%i", &data[i][j]);
-        }
-    }
-
-    fclose(fp);
-    return data;
 }
-
 
 bool breaker(int* combinations,int dataSize){
 	for(int i=0; i < dataSize; i++){
@@ -68,7 +66,6 @@ bool breaker(int* combinations,int dataSize){
 	return true;
 }		
 
-
 void getMaxiumValue(int** data, int dataSize, int maxPonderation){
 
 	int maxiumValues[2] ={0,0};				//save the max value and ponderation found
@@ -78,7 +75,6 @@ void getMaxiumValue(int** data, int dataSize, int maxPonderation){
 		combinationValues[i] = 0;
 		combinationPonderation[i] = 0;
 	}
-
 	while(!breaker(combinationValues, dataSize)){		//process to set values to arrays with binary values and then evaluate them with values of the original data
 		int keep = 1;
 		int CombinationSize = dataSize-1;
@@ -89,20 +85,17 @@ void getMaxiumValue(int** data, int dataSize, int maxPonderation){
 				combinationValues[CombinationSize] = 1;
 				keep = 0;
 			}
-
 			else{
 				combinationValues[CombinationSize] = 0;
 				CombinationSize--; 
 			}
 		}
-
 		for (int i = 0; i < dataSize; ++i){			//collect the values comparing the position of the combination created and the data
 			if (combinationValues[i]==1){
 				actualValues[0]=actualValues[0]+data[i][0];
 				actualValues[1]=actualValues[1]+data[i][1];
 			}
 		}
-
 		if(actualValues[0] > maxiumValues[0] && actualValues[1] <= maxPonderation){		//check if the actual combination it's a new max value and replace if this is true
 			maxiumValues[0]=actualValues[0];
 			maxiumValues[1]=actualValues[1];
@@ -111,9 +104,7 @@ void getMaxiumValue(int** data, int dataSize, int maxPonderation){
 
 	free(combinationValues);
 	printf("max value found: %i with ponderation: %i\n", maxiumValues[0], maxiumValues[1] );
-
 }
-
 
 int getAmountData(char *fileName){		
 	char* trash=strtok(fileName,"_");
