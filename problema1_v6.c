@@ -76,14 +76,14 @@ void getMaxiumValue(int** data, int dataSize, int maxPonderation){
 		combinationPonderation[i] = 0;
 	}
 	while(!breaker(combinationValues, dataSize)){		//process to set values to arrays with binary values and then evaluate them with values of the original data
-		int keep = 1;
+		bool keep = true;
 		int CombinationSize = dataSize-1;
 		int actualValues[2] ={0,0};						//array that save the value of the combination observed
 
-		while(keep == 1){
+		while(keep){
 			if(combinationValues[CombinationSize] == 0){
 				combinationValues[CombinationSize] = 1;
-				keep = 0;
+				keep = false;
 			}
 			else{
 				combinationValues[CombinationSize] = 0;
